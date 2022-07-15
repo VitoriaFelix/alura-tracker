@@ -1,4 +1,6 @@
-# alura-tracker
+# Alura-tracker
+
+## Link da aplicação: https://alura-tracker-inky.vercel.app/
 
 ## Project setup
 ```
