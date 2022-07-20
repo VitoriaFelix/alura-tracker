@@ -1,21 +1,24 @@
 <template>
     <Box>
         <div class="columns">
-            <div class="columns is-7">
-                {{ tarefa.descricao || 'Tarefa sem descricao' }}
+            <div class="column is-4">
+                {{ tarefa.descricao || 'Tarefa sem descrição' }}
             </div>
-            <div class="columns">
-                <Cronometro :tempoEmSegundos="tarefa?.duracaoEmSegundos" />
+            <div class="column is-3">
+                {{ tarefa.projeto?.name || 'N/D' }}
+            </div>
+            <div class="column">
+                <Cronometro :tempoEmSegundos="tarefa.duracaoEmSegundos" />
             </div>
         </div>
-
     </Box>
 </template>
+
 <script lang="ts">
-import ITarefa from "@/interfaces/ITarefa";
-import { defineComponent, PropType } from "vue";
-import Cronometro from './Cronometro.vue';
+import { defineComponent, PropType } from 'vue';
+import Cronometro from "./Cronometro.vue";
 import Box from "./Box.vue";
+import ITarefa from "../interfaces/ITarefa";
 
 export default defineComponent({
     name: 'Tarefa-Component',
@@ -26,10 +29,15 @@ export default defineComponent({
     props: {
         tarefa: {
             type: Object as PropType<ITarefa>,
-            requiered: true
+            required: true
+        }
+    },
+    computed: {
+        tempoGasto(): string {
+            return new Date(this.tarefa.duracaoEmSegundos * 1000)
+                .toISOString()
+                .substr(11, 8)
         }
     }
-})
-
+});
 </script>
-
