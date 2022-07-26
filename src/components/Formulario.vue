@@ -27,34 +27,35 @@ import { defineComponent } from "vue";
 import { useStore } from "vuex";
 import Temporizador from './Temporizador.vue'
 import { key } from '@/store'
-import { computed } from "@vue/reactivity";
+import { computed, ref } from "@vue/reactivity";
 export default defineComponent({
     name: "Formulario-Component",
     emits: ['aoSalvarTarefa'],
     components: {
         Temporizador
     },
-    data() {
-        return {
-            descricao: '',
-            idProjeto: ''
-        }
-    },
-    methods: {
-        finalizarTarefa(tempoDecorrido: number): void {
-            this.$emit('aoSalvarTarefa', {
+
+    setup(props, { emit }) {
+        const store = useStore(key)
+        const descricao = ref("")
+        const idProjeto = ref("")
+        const projetos = computed(() => store.state.projeto.projetos)
+
+        const finalizarTarefa = (tempoDecorrido: number): void => {
+            emit('aoSalvarTarefa', {
                 duracaoEmSegundos: tempoDecorrido,
-                descricao: this.descricao,
-                projeto: this.projetos.find(proj => proj.id === this.idProjeto)
+                descricao: descricao.value,
+                projeto: projetos.value.find(proj => proj.id === idProjeto.value)
             })
-            this.descricao = ''
+            descricao.value = ''
 
         }
-    },
-    setup() {
-        const store = useStore(key)
+
         return {
-            projetos: computed(() => store.state.projetos)
+            descricao,
+            idProjeto,
+            projetos,
+            finalizarTarefa
         }
     }
 });

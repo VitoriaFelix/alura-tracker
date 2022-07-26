@@ -1,0 +1,33 @@
+{
+  "projetos": [
+    {
+      "id": 1,
+      "name": "Alura Tracker"
+    },
+    {
+      "id": 2,
+      "name": "Java Script"
+    }
+  ],
+  "tarefas": [
+  
+    {
+      "duracaoEmSegundos": 2,
+      "descricao": "Configurar ambiente",
+      "projeto": {
+        "id": 1,
+        "name": "Alura Tracker"
+      },
+      "id": 4
+    },
+    {
+      "duracaoEmSegundos": 9,
+      "descricao": "Curso Alura",
+      "projeto": {
+        "id": 2,
+        "name": "Java Script"
+      },
+      "id": 5
+    }
+  ]
+}
